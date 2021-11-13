@@ -6,6 +6,14 @@ Currently, only [roscpp](http://www.ros.org/wiki/roscpp) is supported.
 Other client libraries like [rospy](http://www.ros.org/wiki/rospy) will serialize/deserialize blob data as uint8[],
 as defined in the [message definition](https://github.com/meyerj/blob_tools/blob/master/blob/msg/Blob.msg).
 
+This can **also be used to have union-like message fields** where one field of type is `blob/Blob` can be any valid ROS message type (including custom types) and the type must be remembered in an additonal member, e.g.:
+```
+blob/Blob data
+uint8 type
+uint8 TYPE_STR
+uint8 TYPE_INT
+```
+
 # Usage Example
 `MyMessage.msg`:
 ```
