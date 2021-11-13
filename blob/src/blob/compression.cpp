@@ -47,9 +47,9 @@ namespace blob
     bz_stream stream;
     stream.next_in   = reinterpret_cast<char *>(const_cast<uint8_t *>(data));
     stream.avail_in  = size;
-    stream.bzalloc   = NULL;
-    stream.bzfree    = NULL;
-    stream.opaque    = NULL;
+    stream.bzalloc   = nullptr;
+    stream.bzfree    = nullptr;
+    stream.opaque    = nullptr;
 
     if (BZ2_bzCompressInit(&stream, BLOCK_SIZE_100K, 0, 0) != BZ_OK) {
       return false;
@@ -57,11 +57,11 @@ namespace blob
 
     deflated.resize(CHUNK_SIZE);
     stream.next_out  = reinterpret_cast<char *>(deflated.data());
-    stream.avail_out = deflated.size();
+    stream.avail_out = unsigned(deflated.size());
 
     int result = BZ_RUN_OK;
     int state  = BZ_RUN;
-    while(result == BZ_RUN_OK || result == BZ_FLUSH_OK || result == BZ_FINISH_OK) {
+    while (result == BZ_RUN_OK || result == BZ_FLUSH_OK || result == BZ_FINISH_OK) {
       if (stream.avail_in == 0) {
         state = BZ_FINISH;
       }
@@ -94,9 +94,9 @@ namespace blob
     bz_stream stream;
     stream.next_in   = reinterpret_cast<char *>(const_cast<uint8_t *>(data));
     stream.avail_in  = size;
-    stream.bzalloc   = NULL;
-    stream.bzfree    = NULL;
-    stream.opaque    = NULL;
+    stream.bzalloc   = nullptr;
+    stream.bzfree    = nullptr;
+    stream.opaque    = nullptr;
 
     if (BZ2_bzDecompressInit(&stream, VERBOSITY, SMALL) != BZ_OK) {
       return false;
@@ -104,10 +104,10 @@ namespace blob
 
     inflated.resize(CHUNK_SIZE);
     stream.next_out  = reinterpret_cast<char *>(inflated.data());
-    stream.avail_out = inflated.size();
+    stream.avail_out = unsigned(inflated.size());
 
     int result = BZ_OK;
-    while(result == BZ_OK || result == BZ_FLUSH_OK || result == BZ_FINISH_OK) {
+    while (result == BZ_OK || result == BZ_FLUSH_OK || result == BZ_FINISH_OK) {
       if (stream.avail_out == 0) {
         inflated.resize(inflated.size() + CHUNK_SIZE);
         stream.next_out  = reinterpret_cast<char *>(inflated.data() + inflated.size() - CHUNK_SIZE);
