@@ -10,10 +10,6 @@ find_package(catkin REQUIRED message_generation roscpp std_msgs)
 # find_package(Boost REQUIRED COMPONENTS system)
 find_package(BZip2)
 
-if(BZIP2_FOUND)
-  add_definitions(-DHAVE_BZIP2 ${BZIP2_DEFINITIONS})
-endif()
-
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/groovy/api/catkin/html/user_guide/setup_dot_py.html
@@ -61,14 +57,15 @@ catkin_package(
 ## Build ##
 ###########
 
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(include ${BZIP2_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
-
 ## Declare a cpp library
-add_library(blob
-  src/${PROJECT_NAME}/compression.cpp src/${PROJECT_NAME}/shape_shifter.cpp
-)
+add_library(blob src/${PROJECT_NAME}/compression.cpp src/${PROJECT_NAME}/shape_shifter.cpp)
+target_include_directories(blob SYSTEM PRIVATE ${catkin_INCLUDE_DIRS})
+target_include_directories(blob PRIVATE include)
+if(BZIP2_FOUND)
+  target_include_directories(blob SYSTEM PRIVATE ${BZIP2_INCLUDE_DIR})
+  target_compile_definitions(blob PRIVATE HAVE_BZIP2 ${BZIP2_DEFINITIONS})
+  target_link_libraries(blob ${BZIP2_LIBRARIES})
+endif()
 
 ## Declare a cpp executable
 # add_executable(blob_node src/blob_node.cpp)
@@ -78,9 +75,7 @@ add_library(blob
 # add_dependencies(blob_node blob_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(blob
-  ${BZIP2_LIBRARIES}
-)
+
 
 #############
 ## Install ##
