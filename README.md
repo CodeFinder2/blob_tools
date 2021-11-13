@@ -8,10 +8,11 @@ as defined in the [message definition](https://github.com/meyerj/blob_tools/blob
 
 This can **also be used to have union-like message fields** where one field of type is `blob/Blob` can be any valid ROS message type (including custom types) and the type must be remembered in an additonal member, e.g.:
 ```
-blob/Blob data
-uint8 type
-uint8 TYPE_STR
-uint8 TYPE_INT
+blob/Blob data # either a 'string' or a 'uint32', stored in 'type'
+
+uint8 type # either TYPE_STRING or TYPE_UINT32
+uint8 TYPE_STRING = 1
+uint8 TYPE_UINT32 = 2
 ```
 
 # Usage Example
