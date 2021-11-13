@@ -28,10 +28,6 @@
 
 #include <blob/compression.h>
 
-#ifndef HAVE_BZIP2
-  #define HAVE_BZIP2
-#endif
-
 #ifdef HAVE_BZIP2
 
 #include <bzlib.h>
