@@ -29,7 +29,7 @@ Publisher:
     nav_msgs::OccupancyGridMap my_map;
     ...
     temp.map_blob.serialize(my_map);
-    temp.map_blob.setCompressed(true); // enable compression
+    temp.map_blob.setCompressed(true); // enable bzip2 compression (apt install libbz2-dev)
     ...
     publisher.publish(temp);
 }
