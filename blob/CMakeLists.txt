@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
 project(blob)
 
 find_package(catkin REQUIRED message_generation roscpp std_msgs)
@@ -19,6 +19,7 @@ catkin_package(
 add_library(blob src/${PROJECT_NAME}/compression.cpp src/${PROJECT_NAME}/shape_shifter.cpp)
 target_include_directories(blob SYSTEM PRIVATE ${catkin_INCLUDE_DIRS})
 target_include_directories(blob PRIVATE include)
+target_compile_features(blob PUBLIC cxx_std_11)
 if(BZIP2_FOUND)
   target_include_directories(blob SYSTEM PRIVATE ${BZIP2_INCLUDE_DIR})
   target_compile_definitions(blob PRIVATE HAVE_BZIP2 ${BZIP2_DEFINITIONS})
