@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <package format="3">
-  <name>blob</name>
+  <name>blob_tools</name>
   <version>0.1.0</version>
-  <description>Provides a new message type blob/Blob for binary data.</description>
+  <description>Provides a new message type blob_tools/Blob for binary data.</description>
 
   <license>BSD</license>
 

@@ -26,7 +26,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //=================================================================================================
 
-#include <blob/compression.h>
+#include <blob_tools/compression.h>
 
 #ifdef HAVE_BZIP2
 

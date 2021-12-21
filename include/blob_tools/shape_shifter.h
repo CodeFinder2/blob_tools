@@ -30,7 +30,7 @@
 #define BLOB_SHAPE_SHIFTER_H
 
 #include <ros/ros.h>
-#include <blob/Blob.h>
+#include <blob_tools/Blob.h>
 
 namespace blob {
 

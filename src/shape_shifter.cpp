@@ -26,7 +26,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //=================================================================================================
 
-#include <blob/shape_shifter.h>
+#include <blob_tools/shape_shifter.h>
 
 namespace blob {
 

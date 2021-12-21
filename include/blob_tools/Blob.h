@@ -38,7 +38,7 @@
 #include <boost/shared_ptr.hpp>
 #include <vector>
 
-#include <blob/compression.h>
+#include <blob_tools/compression.h>
 
 namespace blob {
 
