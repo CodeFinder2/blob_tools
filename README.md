@@ -1,24 +1,30 @@
 # blob_tools
 
-blob provides a new message type blob/Blob for binary data.
+*blob_tools* provides a new message type blob_tools/Blob for binary data.
 
 Currently, only [roscpp](http://www.ros.org/wiki/roscpp) is supported.
 Other client libraries like [rospy](http://www.ros.org/wiki/rospy) will serialize/deserialize blob data as uint8[],
 as defined in the [message definition](https://github.com/meyerj/blob_tools/blob/master/blob/msg/Blob.msg).
 
-This can **also be used to have union-like message fields** where one field of type is `blob/Blob` can be any valid ROS message type (including custom types) and the type must be remembered in an additonal member, e.g.:
+This can **also be used to have union-like message fields** where one field of type is `blob_tools/Blob` can be any valid ROS message type (including custom types) and the type must be remembered in an additonal member, e.g.:
 ```
-blob/Blob data # either a 'string' or a 'uint32', stored in 'type'
+blob_tools/Blob data # either a 'string' or a 'uint32', stored in 'type'
 
 uint8 type # either TYPE_STRING or TYPE_UINT32
 uint8 TYPE_STRING = 1
 uint8 TYPE_UINT32 = 2
 ```
 
+# Installation
+```
+cd your_catkin_ws/src
+git clone git@github.com:CodeFinder2/blob_tools.git
+```
+
 # Usage Example
 `MyMessage.msg`:
 ```
-blob/Blob map_blob      # a serialized (and compressed) nav_msgs/OccupancyGridMap
+blob_tools/Blob map_blob      # a serialized (and compressed) nav_msgs/OccupancyGridMap
 ```
 
 Publisher:
