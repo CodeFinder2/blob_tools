@@ -28,7 +28,7 @@
 
 
 #include <ros/ros.h>
-#include <blob/Blob.h>
+#include <blob_tools/Blob.h>
 
 #include <sensor_msgs/Imu.h>
 
@@ -38,11 +38,11 @@ void publish(const ros::TimerEvent& event)
 {
 #ifdef SENSOR_MSGS_MESSAGE_IMU_H
   sensor_msgs::Imu message;
-  blob::BlobPtr blob(new blob::Blob());
+  blob_tools::BlobPtr blob(new blob_tools::Blob());
   blob->serialize(message);
 #else
   const char buffer[] = "This is a test blob on the stack.\nThis is a test blob on the stack.\nThis is a test blob on the stack.\nThis is a test blob on the stack.\nThis is a test blob on the stack.\n";
-  blob::BlobPtr blob(new blob::Blob(buffer, sizeof(buffer), true));
+  blob_tools::BlobPtr blob(new blob_tools::Blob(buffer, sizeof(buffer), true));
 #endif
 
   blob->setCompressed(true);
@@ -54,9 +54,9 @@ void publish(const ros::TimerEvent& event)
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "blob_test_publisher");
+  ros::init(argc, argv, "blob_tools_example_publisher");
   ros::NodeHandle nh;
-  pub = nh.advertise<blob::Blob>("blob", 10);
+  pub = nh.advertise<blob_tools::Blob>("blob", 10);
   ros::Timer timer = nh.createTimer(ros::Duration(1.0), &publish);
   ros::spin();
   return 0;

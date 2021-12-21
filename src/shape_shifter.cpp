@@ -28,7 +28,7 @@
 
 #include <blob_tools/shape_shifter.h>
 
-namespace blob {
+namespace blob_tools {
 
   ShapeShifter::ShapeShifter()
   {
@@ -72,4 +72,4 @@ namespace blob {
     return blob_.size();
   }
 
-} // namespace blob
+} // namespace blob_tools

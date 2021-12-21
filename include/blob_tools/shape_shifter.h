@@ -32,7 +32,7 @@
 #include <ros/ros.h>
 #include <blob_tools/Blob.h>
 
-namespace blob {
+namespace blob_tools {
 
 struct ShapeShifter
 {
@@ -98,37 +98,37 @@ ShapeShifter Blob_<ContainerAllocator>::asMessage() const
   return ShapeShifter(*this);
 }
 
-} // namespace blob
+} // namespace blob_tools
 
 // Message traits allow shape shifter to work with the new serialization API
 namespace ros {
 namespace message_traits {
 
-template <> struct IsMessage<blob::ShapeShifter> : TrueType { };
-template <> struct IsMessage<const blob::ShapeShifter> : TrueType { };
+template <> struct IsMessage<blob_tools::ShapeShifter> : TrueType { };
+template <> struct IsMessage<const blob_tools::ShapeShifter> : TrueType { };
 
 template<>
-struct MD5Sum<blob::ShapeShifter>
+struct MD5Sum<blob_tools::ShapeShifter>
 {
-  static const char* value(const blob::ShapeShifter& m) { return m.getMD5Sum().c_str(); }
+  static const char* value(const blob_tools::ShapeShifter& m) { return m.getMD5Sum().c_str(); }
 
   // Used statically, a shapeshifter appears to be of any type
   static const char* value() { return "*"; }
 };
 
 template<>
-struct DataType<blob::ShapeShifter>
+struct DataType<blob_tools::ShapeShifter>
 {
-  static const char* value(const blob::ShapeShifter& m) { return m.getDataType().c_str(); }
+  static const char* value(const blob_tools::ShapeShifter& m) { return m.getDataType().c_str(); }
 
   // Used statically, a shapeshifter appears to be of any type
   static const char* value() { return "*"; }
 };
 
 template<>
-struct Definition<blob::ShapeShifter>
+struct Definition<blob_tools::ShapeShifter>
 {
-  static const char* value(const blob::ShapeShifter& m) { return m.getMessageDefinition().c_str(); }
+  static const char* value(const blob_tools::ShapeShifter& m) { return m.getMessageDefinition().c_str(); }
 };
 
 } // namespace message_traits
@@ -138,29 +138,29 @@ namespace serialization
 {
 
 template<>
-struct Serializer<blob::ShapeShifter>
+struct Serializer<blob_tools::ShapeShifter>
 {
   template<typename Stream>
-  inline static void write(Stream& stream, const blob::ShapeShifter& m) {
+  inline static void write(Stream& stream, const blob_tools::ShapeShifter& m) {
     m.write(stream);
   }
 
   template<typename Stream>
-  inline static void read(Stream& stream, blob::ShapeShifter& m)
+  inline static void read(Stream& stream, blob_tools::ShapeShifter& m)
   {
     m.read(stream);
   }
 
-  inline static uint32_t serializedLength(const blob::ShapeShifter& m) {
+  inline static uint32_t serializedLength(const blob_tools::ShapeShifter& m) {
     return m.size();
   }
 };
 
 
 template<>
-struct PreDeserialize<blob::ShapeShifter>
+struct PreDeserialize<blob_tools::ShapeShifter>
 {
-  static void notify(const PreDeserializeParams<blob::ShapeShifter>& params)
+  static void notify(const PreDeserializeParams<blob_tools::ShapeShifter>& params)
   {
     std::string md5       = (*params.connection_header)["md5sum"];
     std::string datatype  = (*params.connection_header)["type"];
@@ -180,7 +180,7 @@ struct PreDeserialize<blob::ShapeShifter>
 
 // Template implementations:
 
-namespace blob
+namespace blob_tools
 {
 
   template<class M>
@@ -206,6 +206,6 @@ namespace blob
     blob_.set(buffer);
   }
 
-} // namespace blob
+} // namespace blob_tools
 
 #endif // BLOB_SHAPE_SHIFTER_H

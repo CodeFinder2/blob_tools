@@ -32,7 +32,7 @@
 
 #include <bzlib.h>
 
-namespace blob
+namespace blob_tools
 {
   static const std::size_t CHUNK_SIZE = 10 * 1024; // 10k chunks
   static const int VERBOSITY = 1;
@@ -128,7 +128,7 @@ namespace blob
     return true;
   }
 
-} // namespace blob
+} // namespace blob_tools
 
 #else // HAVE_BZIP2
 

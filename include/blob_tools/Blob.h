@@ -40,7 +40,7 @@
 
 #include <blob_tools/compression.h>
 
-namespace blob {
+namespace blob_tools {
 
 class ShapeShifter;
 
@@ -73,8 +73,8 @@ struct Blob_
     set(data, size);
   }
 
-  typedef boost::shared_ptr< ::blob::Blob_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::blob::Blob_<ContainerAllocator> const> ConstPtr;
+  typedef boost::shared_ptr< ::blob_tools::Blob_<ContainerAllocator> > Ptr;
+  typedef boost::shared_ptr< ::blob_tools::Blob_<ContainerAllocator> const> ConstPtr;
   boost::shared_ptr<std::map<std::string, std::string> > __connection_header;
 
   // assign pointer, size and copy (if available)
@@ -245,7 +245,7 @@ private:
     if (!compressed_blob_) {
       BufferPtr temp(new Buffer());
 
-      if (!::blob::deflate(data(), size(), *temp)) {
+      if (!::blob_tools::deflate(data(), size(), *temp)) {
         ROS_WARN_NAMED("blob", "Error during compression of a blob of size %u", size());
         return false;
       }
@@ -262,7 +262,7 @@ private:
     clear();
     BufferPtr temp(new Buffer());
 
-    if (!::blob::inflate(data, size, *temp)) {
+    if (!::blob_tools::inflate(data, size, *temp)) {
       ROS_WARN_NAMED("blob", "Error during decompression of a blob of size %u", size);
       return false;
     }
@@ -280,18 +280,18 @@ private:
   mutable ConstBufferPtr compressed_blob_;
 }; // struct Blob_
 
-typedef ::blob::Blob_<std::allocator<void> > Blob;
-typedef boost::shared_ptr< ::blob::Blob > BlobPtr;
-typedef boost::shared_ptr< ::blob::Blob const> BlobConstPtr;
+typedef ::blob_tools::Blob_<std::allocator<void> > Blob;
+typedef boost::shared_ptr< ::blob_tools::Blob > BlobPtr;
+typedef boost::shared_ptr< ::blob_tools::Blob const> BlobConstPtr;
 
 template<typename ContainerAllocator>
-std::ostream& operator<<(std::ostream& s, const ::blob::Blob_<ContainerAllocator> & v)
+std::ostream& operator<<(std::ostream& s, const ::blob_tools::Blob_<ContainerAllocator> & v)
 {
-  ros::message_operations::Printer< ::blob::Blob_<ContainerAllocator> >::stream(s, "", v);
+  ros::message_operations::Printer< ::blob_tools::Blob_<ContainerAllocator> >::stream(s, "", v);
   return s;
 }
 
-} // namespace blob
+} // namespace blob_tools
 
 namespace ros
 {
@@ -299,62 +299,62 @@ namespace message_traits
 {
 
 template <class ContainerAllocator>
-struct IsFixedSize< ::blob::Blob_<ContainerAllocator> >
+struct IsFixedSize< ::blob_tools::Blob_<ContainerAllocator> >
   : FalseType
   { };
 
 template <class ContainerAllocator>
-struct IsFixedSize< ::blob::Blob_<ContainerAllocator> const>
+struct IsFixedSize< ::blob_tools::Blob_<ContainerAllocator> const>
   : FalseType
   { };
 
 template <class ContainerAllocator>
-struct IsMessage< ::blob::Blob_<ContainerAllocator> >
+struct IsMessage< ::blob_tools::Blob_<ContainerAllocator> >
   : TrueType
   { };
 
 template <class ContainerAllocator>
-struct IsMessage< ::blob::Blob_<ContainerAllocator> const>
+struct IsMessage< ::blob_tools::Blob_<ContainerAllocator> const>
   : TrueType
   { };
 
 template <class ContainerAllocator>
-struct HasHeader< ::blob::Blob_<ContainerAllocator> >
+struct HasHeader< ::blob_tools::Blob_<ContainerAllocator> >
   : FalseType
   { };
 
 template <class ContainerAllocator>
-struct HasHeader< ::blob::Blob_<ContainerAllocator> const>
+struct HasHeader< ::blob_tools::Blob_<ContainerAllocator> const>
   : FalseType
   { };
 
 
 template<class ContainerAllocator>
-struct MD5Sum< ::blob::Blob_<ContainerAllocator> >
+struct MD5Sum< ::blob_tools::Blob_<ContainerAllocator> >
 {
   static const char* value()
   {
     return "8115c3ed9d7b2e23c47c6ecaff2d4b13";
   }
 
-  static const char* value(const ::blob::Blob_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::blob_tools::Blob_<ContainerAllocator>&) { return value(); }
   static const uint64_t static_value1 = 0x8115c3ed9d7b2e23ULL;
   static const uint64_t static_value2 = 0xc47c6ecaff2d4b13ULL;
 };
 
 template<class ContainerAllocator>
-struct DataType< ::blob::Blob_<ContainerAllocator> >
+struct DataType< ::blob_tools::Blob_<ContainerAllocator> >
 {
   static const char* value()
   {
     return "blob/Blob";
   }
 
-  static const char* value(const ::blob::Blob_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::blob_tools::Blob_<ContainerAllocator>&) { return value(); }
 };
 
 template<class ContainerAllocator>
-struct Definition< ::blob::Blob_<ContainerAllocator> >
+struct Definition< ::blob_tools::Blob_<ContainerAllocator> >
 {
   static const char* value()
   {
@@ -364,7 +364,7 @@ uint8[] data\n\
 ";
   }
 
-  static const char* value(const ::blob::Blob_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::blob_tools::Blob_<ContainerAllocator>&) { return value(); }
 };
 
 } // namespace message_traits
@@ -376,7 +376,7 @@ namespace ros
 namespace serialization
 {
 
-  template<class ContainerAllocator> struct Serializer< ::blob::Blob_<ContainerAllocator> >
+  template<class ContainerAllocator> struct Serializer< ::blob_tools::Blob_<ContainerAllocator> >
   {
     template<typename Stream, typename T>
     inline static void write(Stream& stream, const T& t)
@@ -406,9 +406,9 @@ namespace message_operations
 {
 
 template<class ContainerAllocator>
-struct Printer< ::blob::Blob_<ContainerAllocator> >
+struct Printer< ::blob_tools::Blob_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::blob::Blob_<ContainerAllocator>& v)
+  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::blob_tools::Blob_<ContainerAllocator>& v)
   {
     s << indent << "(blob)";
   }

@@ -32,7 +32,7 @@
 #include <vector>
 #include <stdint.h>
 
-namespace blob
+namespace blob_tools
 {
   bool compressionAvailable();
   bool deflate(const uint8_t *data, uint32_t size, std::vector<uint8_t>& deflated);

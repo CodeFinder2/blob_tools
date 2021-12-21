@@ -27,11 +27,11 @@
 //=================================================================================================
 
 #include <ros/ros.h>
-#include <blob/Blob.h>
+#include <blob_tools/Blob.h>
 
 #include <sensor_msgs/Imu.h>
 
-void callback(const blob::BlobConstPtr& blob) {
+void callback(const blob_tools::BlobConstPtr& blob) {
   ROS_INFO("Received a blob of size %u at address %p: %s", blob->size(), blob->data(), std::string(reinterpret_cast<const char *>(blob->data()), blob->size()).c_str());
 
 #ifdef SENSOR_MSGS_MESSAGE_IMU_H
@@ -44,9 +44,9 @@ void callback(const blob::BlobConstPtr& blob) {
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "blob_test_subscriber");
+  ros::init(argc, argv, "blob_tools_example_subscriber");
   ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe<blob::Blob>("blob", 10, &callback);
+  ros::Subscriber sub = nh.subscribe<blob_tools::Blob>("blob", 10, &callback);
   ros::spin();
   return 0;
 }
